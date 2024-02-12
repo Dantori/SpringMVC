@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EmployeePath</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/employee/edit/{id}(id=${employee.getId()})}" th:object="${employee}">
+    <label for="name">Enter name:</label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br/>
+    <label for="position">Enter position:</label>
+    <input type="text" th:field="*{position}" id="position"/>
+    <br/>
+    <input type="submit" value="Update!"/>
+</form>
+
+</body>
+</html>

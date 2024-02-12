@@ -1,6 +1,7 @@
 package ru.trofimov.springmvcapp.repository.impl;
 
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.trofimov.springmvcapp.domain.Employee;
@@ -16,7 +17,9 @@ import java.util.List;
 @Repository
 public class ManagerRepositoryImpl implements ManagerRepository {
 
+    private static final Logger logger = Logger.getLogger(ManagerRepositoryImpl.class);
     private final EmployeeService employeeService;
+
 
     @Autowired
     public ManagerRepositoryImpl(EmployeeService employeeService) {
@@ -38,6 +41,7 @@ public class ManagerRepositoryImpl implements ManagerRepository {
     public void createManager(Manager manager) {
         manager.setId(++MANAGER_ID);
         managers.add(manager);
+        logger.info("DataBase event: createManager(" + manager.getId() + ")");
     }
 
     @Override
@@ -50,6 +54,7 @@ public class ManagerRepositoryImpl implements ManagerRepository {
 
     @Override
     public List<Manager> findAllManager() {
+        logger.info("DataBase event: findAllManager()");
         return managers;
     }
 
@@ -60,6 +65,7 @@ public class ManagerRepositoryImpl implements ManagerRepository {
         for (Integer i : employeesId) {
             if (i != null) {
                 managersEmployees.add(employeeService.getEmployeeById(i));
+                logger.info("DataBase event: findManagersEmployees()");
             } else {
                 throw new RuntimeException();
             }
@@ -71,10 +77,12 @@ public class ManagerRepositoryImpl implements ManagerRepository {
     public void updateManager(int id, Manager manager) {
         Manager managerToByUpdated = findManagerById(id);
         managerToByUpdated.setName(manager.getName());
+        logger.info("DataBase event: updateManager(" + id + ")");
     }
 
     @Override
     public void deleteManagerById(int id) {
         managers.removeIf(manager -> manager.getId() == id);
+        logger.info("DataBase event: deleteManagerById(" + id + ")");
     }
 }

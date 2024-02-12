@@ -1,21 +1,25 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>CreateEmployee</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CreateInfo</title>
 </head>
 <body>
+
 <h1>Create Employee</h1>
-<form action="/employee/create" method="post" th:object="${employee}">
+<form th:action="@{/employee/create}" method="post" th:object="${employee}">
     <div>
         <label for="name">Name:</label>
-        <input type="text" id="name" th:field="*{name}"/>
+        <input type="text" id="name" name="name" th:field="*{name}"/>
     </div>
     <div>
         <label for="position">Position:</label>
-        <input type="text" id="position" th:field="*{position}"/>
+        <input type="text" id="position"  name="position"/>
     </div>
     <button type="submit">Create</button>
 </form>
+<a href="/employee/info"><button>Back</button></a>
+
 </body>
 </html>
